@@ -1,5 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client"
-/* src/components/landing/landing-page.tsx */
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
