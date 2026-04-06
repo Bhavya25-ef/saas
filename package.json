@@ -17,6 +17,7 @@
     "@next/swc-win32-x64-msvc": "^14.2.33",
     "@notionhq/client": "^2.2.0",
     "@prisma/client": "^5.6.0",
+    "@radix-ui/react-slot": "^1.2.4",
     "@slack/web-api": "^6.9.0",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "axios": "^1.6.0",
