@@ -80,7 +80,7 @@ export function LandingPage() {
         <div className="max-w-2xl mx-auto space-y-6">
           <h2 className="text-4xl font-bold">Ready to automate?</h2>
           <p className="text-lg opacity-90">
-            Start building your first automation today. It&#39;s completely free.
+            Start building your first automation today. It&apos;s completely free.
           </p>
 
           <SignedOut>
