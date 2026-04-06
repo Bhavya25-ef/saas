@@ -1,0 +1,21 @@
+{
+  "buildCommand": "npm run build && npm run prisma:generate",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "nodeVersion": "18.x",
+  "env": {
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "@next_public_clerk_publishable_key",
+    "CLERK_SECRET_KEY": "@clerk_secret_key",
+    "DATABASE_URL": "@database_url",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "@next_public_stripe_publishable_key",
+    "STRIPE_SECRET_KEY": "@stripe_secret_key"
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
+    }
+  ]
+}

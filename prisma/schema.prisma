@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  clerkId       String?        @unique
+  name          String?
+  image         String?
+  usage         Int            @default(0)   // ✅ ADDED
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  automations   Automation[]
+  credits       Credits?
+  integrations  Integration[]
+  subscriptions Subscription[]
+  workflows     Workflow[]
+
+  @@index([clerkId])
+}
+
+model Credits {
+  id     String @id @default(cuid())
+  count  Int    @default(0)
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Subscription {
+  id                     String    @id @default(cuid())
+  userId                 String
+  stripeSubscriptionId   String?   @unique
+  stripePriceId          String?
+  stripeCustomerId       String?
+  stripeCurrentPeriodEnd DateTime?
+  plan                   String    @default("free")
+  status                 String    @default("active")
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+  user                   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([stripeCustomerId])
+}
+
+model Integration {
+  id           String    @id @default(cuid())
+  userId       String
+  type         String
+  name         String?
+  accessToken  String?
+  refreshToken String?
+  expiresAt    DateTime?
+  metadata     Json?     @default("{}")
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  actions      Action[]
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  triggers     Trigger[]
+
+  @@unique([userId, type])
+  @@index([userId])
+  @@index([type])
+}
+
+model Automation {
+  id          String     @id @default(cuid())
+  userId      String
+  name        String
+  description String?
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workflows   Workflow[]
+
+  @@index([userId])
+}
+
+model Workflow {
+  id           String              @id @default(cuid())
+  automationId String
+  userId       String
+  name         String
+  description  String?
+  isPublished  Boolean             @default(false)
+  isActive     Boolean             @default(true)
+  nodes        Json                @default("[]")
+  edges        Json                @default("[]")
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  actions      Action[]
+  triggers     Trigger[]
+  automation   Automation          @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  executions   WorkflowExecution[]
+
+  @@index([userId])
+  @@index([automationId])
+}
+
+model Trigger {
+  id            String      @id @default(cuid())
+  workflowId    String
+  integrationId String
+  type          String
+  conditions    Json?       @default("{}")
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  integration   Integration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+  workflow      Workflow    @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@index([workflowId])
+  @@index([integrationId])
+}
+
+model Action {
+  id            String      @id @default(cuid())
+  workflowId    String
+  integrationId String
+  type          String
+  config        Json?       @default("{}")
+  order         Int
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  integration   Integration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+  workflow      Workflow    @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@index([workflowId])
+  @@index([integrationId])
+}
+
+model WorkflowExecution {
+  id         String   @id @default(cuid())
+  workflowId String
+  status     String   @default("pending")
+  result     Json?
+  error      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@index([workflowId])
+  @@index([status])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String?
+  type      String   @default("info")
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([read])
+}

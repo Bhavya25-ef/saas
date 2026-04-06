@@ -1,0 +1,62 @@
+{
+  "name": "saas-automation-builder",
+  "version": "1.0.0",
+  "description": "AI Automation SAAS Platform - Skyrocket Agency",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^4.29.0",
+    "@next/swc-win32-x64-msvc": "^14.2.33",
+    "@notionhq/client": "^2.2.0",
+    "@prisma/client": "^5.6.0",
+    "@slack/web-api": "^6.9.0",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "axios": "^1.6.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "discord.js": "^14.14.0",
+    "eslint-config-next": "^14.0.0",
+    "googleapis": "^118.0.0",
+    "lucide-react": "^0.292.0",
+    "next": "^14.2.33",
+    "next-auth": "^4.24.0",
+    "next-themes": "^0.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-flow-renderer": "^10.3.17",
+    "react-hook-form": "^7.48.0",
+    "react-hot-toast": "^2.4.1",
+    "reactflow": "^11.10.0",
+    "shadcn-ui": "^0.7.0",
+    "stripe": "^14.8.0",
+    "swr": "^2.2.0",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss-animate": "^1.0.6",
+    "typescript": "^5.3.0",
+    "uploadcare": "^0.4.8",
+    "zod": "^3.22.0",
+    "zustand": "^4.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.27",
+    "eslint": "^8.54.0",
+    "postcss": "^8.4.31",
+    "prisma": "^5.6.0",
+    "tailwindcss": "^3.4.19"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}
