@@ -35,7 +35,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --force
 
       - name: Run ESLint
         run: npm run lint || true
@@ -68,7 +68,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --force
 
       - name: Run npm audit
         run: npm audit || true
@@ -102,7 +102,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --force
 
       - name: Generate Prisma Client
         run: npm run prisma:generate
@@ -141,7 +141,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --force
 
       - name: Validate Prisma schema
         run: npx prisma validate
