@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client"
 
 import Link from "next/link"
@@ -79,8 +78,10 @@ export function LandingPage() {
       <section className="py-20 px-4 bg-primary text-primary-foreground text-center">
         <div className="max-w-2xl mx-auto space-y-6">
           <h2 className="text-4xl font-bold">Ready to automate?</h2>
+
+          {/* ✅ FIXED HERE */}
           <p className="text-lg opacity-90">
-            Start building your first automation today. It&apos;s completely free.
+            Start building your first automation today. It is completely free.
           </p>
 
           <SignedOut>
